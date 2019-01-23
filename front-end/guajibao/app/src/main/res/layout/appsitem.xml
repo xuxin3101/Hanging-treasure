@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#262934"
+    android:padding="5dp"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/appsimg"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="30dp"
+        android:src="@mipmap/ic_launcher_round">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/appstitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="王者荣耀"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/appscontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#ffffff" />
+
+</LinearLayout>
+
+
+</LinearLayout>

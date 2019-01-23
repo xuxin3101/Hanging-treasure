@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tixian_radius">
+
+    <TextView
+        android:id="@+id/tixian_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="40dp"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:text="2018.12.07 20:32"/>
+
+    <TextView
+        android:id="@+id/tixian_item_jine"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignBaseline="@+id/tixian_item_date"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:text="￥150.00"
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
+
+</RelativeLayout>

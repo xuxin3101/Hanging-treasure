@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D101C"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0D101C"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/allerta"
+            android:text="可用余额"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="35dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/emilys_candy"
+            android:text="AVAILABLE BALANCE"
+            android:textAlignment="center"
+            android:textColor="#a0a0a0"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/allerta"
+            android:id="@+id/tv_wallet_yue"
+            android:text="￥100.00"
+            android:textAlignment="center"
+            android:textColor="#FFC40C"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
+        <ExpandableListView
+            android:id="@+id/tixianjilu"
+            android:layout_width="wrap_content"
+            android:layout_height="278dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10sp">
+
+        </ExpandableListView>
+
+
+        <Button
+            android:id="@+id/buttontixian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+
+            android:background="@drawable/tixianbutton"
+            android:text="提现"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+
+
+
+    </LinearLayout>
+    </ScrollView>
+
