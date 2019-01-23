@@ -7,11 +7,11 @@
 ##font-end文件夹  
 android前端
 效果如下  
-![展示效果](https://github.com/xuxin3101/Hanging-treasure/tree/master/imgs/front-end.gif)  
+![展示效果](https://raw.githubusercontent.com/xuxin3101/Hanging-treasure/master/imgs/front-end.gif)  
 ##back-end文件夹
 php后台  
 效果如下 
-![展示效果](https://github.com/xuxin3101/Hanging-treasure/tree/master/imgs/back-end.png)  
+![展示效果](https://raw.githubusercontent.com/xuxin3101/Hanging-treasure/master/imgs/back-end.png)  
 ##sql文件  
 数据库文件   
 Hanging-treasure.sql
