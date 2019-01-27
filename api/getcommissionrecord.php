@@ -2,7 +2,7 @@
 include('connect.php');
 $username=addslashes($_POST['username']);
 $data=[];
-$sql = "select * from commission_record where username ='$username' order by id desc";
+$sql = "select id,appname,time,price,username from commission_record where username ='$username' order by id desc limit 100";
     $res = $mysqli->query($sql);
     if (!$res) {
         die("sql error:\n" . $mysqli->error);
