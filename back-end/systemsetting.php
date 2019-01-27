@@ -244,6 +244,11 @@
             $res = $mysqli->query($sql);
             $row=$res->fetch_assoc();
             $minamount=$row['minamount'];
+            $sql="select * from incomerate";
+            $res = $mysqli->query($sql);
+            $row=$res->fetch_assoc();
+            $incomerate=$row['incomerate'];
+
 
 
             ?>
@@ -328,6 +333,15 @@
                                            class="form-control col-md-7 col-xs-12" value='<?php echo $minamount; ?>'>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">收益比率 <span
+                                        class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="" id="incomerate" name="incomerate" required="required"
+                                           class="form-control col-md-7 col-xs-12" value='<?php echo $incomerate; ?>'>
+                                </div>
+                            </div>
                               
                             <div class="ln_solid"></div>
 
@@ -390,6 +404,7 @@ $(function () {
       var starttime=$("#starttime").val();
       var endtime=$("#endtime").val();
       var minamount=$("#minamount").val();
+      var incomerate=$("#incomerate").val();
       if(announce==""||announce==undefined){
         ShowFailure("请填写公告");
         return;
@@ -418,7 +433,11 @@ $(function () {
         ShowFailure("请填写无收益结束时间");
         return;
       }
-      $.post("../api/updatesystesetting.php","announce="+announce+"&qq="+qq+"&minwithdraw="+minwithdraw+"&cricletime="+cricletime+"&starttime="+starttime+"&endtime="+endtime+"&minamount="+minamount,function(res,statue){
+      if(incomerate=""|| incomerate==undefined){
+        ShowFailure("请填写收益比率");
+        return;
+      }
+      $.post("../api/updatesystesetting.php","announce="+announce+"&qq="+qq+"&minwithdraw="+minwithdraw+"&cricletime="+cricletime+"&starttime="+starttime+"&endtime="+endtime+"&minamount="+minamount+"&incomerate="+incomerate,function(res,statue){
           res=res.trim();
           if(res=="1"){
             ShowSuccess("更新成功..")
