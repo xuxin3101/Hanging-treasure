@@ -433,7 +433,7 @@ $(function () {
         ShowFailure("请填写无收益结束时间");
         return;
       }
-      if(incomerate=""|| incomerate==undefined){
+      if(incomerate==""|| incomerate==undefined){
         ShowFailure("请填写收益比率");
         return;
       }
