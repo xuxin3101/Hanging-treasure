@@ -15,8 +15,10 @@ if (!empty($_POST['superior'])) {
     $row= $res->fetch_assoc();
     if ($row) {//密码验证通过
         $sql = "insert into relationship(id,superior,subordinate) values (null,'$superior','$subordinate');";
-        $res= $mysqli->query($sql);
-        echo $res;
+        $re= $mysqli->query($sql);
+        $sql="insert into  commission_record(id,appname,price,username,`time`,subordinate) values (null,'收徒奖励',0.00,'$superior',now(),'$subordinate');";
+        $res = $mysqli->query($sql);
+        echo $re;
     } else {
         echo 'erro';
     }
