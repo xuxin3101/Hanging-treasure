@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>编辑用户 </title>
+    <title>添加应用 </title>
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -97,6 +97,12 @@
                                                 会员列表 </a></li>
                                         <li><a href="withdraw.php">
                                                 会员提现 </a></li>
+                                    </ul>
+                                </li>
+                                <li><a><i class="fa fa-home"></i> 平台管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="platformlist.php">
+                                                平台管理 </a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-home"></i> 系统设置 <span class="fa fa-chevron-down"></span></a>
@@ -223,8 +229,8 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>会员编辑
-                                    <small>会员详情信息编辑</small>
+                                <h2>应用管理
+                                    <small>应用列表</small>
                                 </h2>
                                
                                 <div class="clearfix"></div>
@@ -235,95 +241,29 @@
                          <form  data-parsley-validate=""   class="form-horizontal form-label-left"
                               novalidate="">
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">会员账号 <span
+                              <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">录入平台名称 <span
                                         class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="u" name="url" required="required"
+                                    <input type="text" id="title" name="url" required="required"
                                            class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">身份证号 <span
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">录入logo链接 <span
                                         class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="idcard" name="url" required="required"
-                                           class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="logoimg" name="url" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">支付宝账号 <span
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">录入平台介绍 <span
                                         class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="alipayaccount" name="url" required="required"
-                                           class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">姓名 <span
-                                        class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="name" name="url" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">银行账号 <span
-                                        class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="bankaccount" name="url" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">开户行 <span
-                                        class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="bankplace" name="url" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">每日最大收益 <span
-                                        class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="maxincome" name="url" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">已拨款 <span
-                                        class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="withdrawed" name="url" required="required" class="form-control col-md-7 col-xs-12" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">未提现 <span
-                                        class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="notwithdraw" name="url" required="required" class="form-control col-md-7 col-xs-12" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">总收益 <span
-                                        class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="income" name="url" required="required" class="form-control col-md-7 col-xs-12" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">密码 <span
-                                        class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="password" name="url" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="content" name="url" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -332,7 +272,7 @@
                         </form>
                         <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <button class="btn btn-success" onclick="updatemember()">更新</button>
+                                    <button class="btn btn-success" onclick="addplatform()">录入</button>
                                 </div>
                             </div>
 
@@ -375,42 +315,29 @@ $(function () {
     $("#username").html(username)
     $("#usernamedis").html(username)
   })
-  $.post("../api/getmemberdetaile.php","id=<?php echo $_GET['id']; ?>",function(res,statue){
-      if(typeof res=='string')
-      res=JSON.parse(res.trim());
-    $("#u").val(res.username)
-    $("#idcard").val(res.idcard);
-    $("#alipayaccount").val(res.alipayaccount);
-    $("#name").val(res.alipayname);
-    $("#bankaccount").val(res.bankaccount);
-    $("#bankplace").val(res.bankplace);
-    $("#maxincome").val(res.maxincome);
-    $('#withdrawed').val(res.withdrawed);
-    $("#notwithdraw").val(res.notwithdraw);
-    $("#income").val(res.income);
-    
-
-
-  })
-  function updatemember(){
-      var username=$("#u").val();
-      var idcard=$("#idcard").val();
-      var alipayaccount=$("#alipayaccount").val();
-      var name=$("#name").val();
-      var bankaccount=$("#bankaccount").val();
-      var bankplace=$("#bankplace").val();
-      var password=$("#password").val();
-      var maxincome=$("#maxincome").val();
-      if(username==""||username==undefined){
-        ShowFailure("请填用户名");
+  function addplatform(){
+      var title=$("#title").val();
+      var logo=$("#logoimg").val();
+      var content=$("#content").val();
+      if(title==""||title==undefined){
+        ShowFailure("请填试玩平台");
         return;
       }
-      $.post("../api/updatemember.php","username="+username+"&idcard="+idcard+"&alipayaccount="+alipayaccount+"&name="+name+"&bankaccount="+bankaccount+"&bankplace="+bankplace+"&maxincome="+maxincome+"&password="+password+"&id=<?php echo $_GET['id']; ?>",function(res,statue){
+      if(logo==""||logo==undefined){
+        ShowFailure("请填logo链接");
+        return;
+      }
+      if(content==""||content==undefined){
+        ShowFailure("请填应用介绍");
+        return;
+      }
+ 
+      $.post("../api/addplatform.php","title="+title+"&logo="+logo+"&content="+content,function(res,statue){
           res=res.trim();
           if(res=="1"){
-            ShowSuccess("更新成功..")
+            ShowSuccess("发布成功..")
             setTimeout(function() {
-                location.href="memberlist.php"
+                location.href="platformlist.php"
             }, 1000);
           }else{
             ShowFailure("发布失败")

@@ -8,7 +8,11 @@ $sql = "select a.subordinate subordinate,sum(a.price) amount from commission_rec
         die("sql error:\n" . $mysqli->error);
     }
     while ($row= $res->fetch_assoc()) {
+        if ($row['subordinate']==NULL) {
+           break;
+        }
         array_push($data, $row);
     }
+   
     echo json_encode($data);
 $mysqli->close();

@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>应用管理 </title>
+    <title>平台管理 </title>
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -229,8 +229,8 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>应用管理
-                                    <small>应用列表</small>
+                                <h2>平台管理
+                                    <small>平台列表</small>
                                 </h2>
                                
                                 <div class="clearfix"></div>
@@ -254,13 +254,13 @@
                             } else {
                                 $page=$_GET['page'];
                             }
-                            $sql ="select count(*) c from apps";
+                            $sql ="select count(*) c from platforms";
                             $res = $mysqli->query($sql);
                             $row= $res->fetch_assoc();
                             $count=$row['c'];
                             $page=($page-1)*10;
                                 $data=[];
-                                $sql = "select * from apps order by id  limit $page,10;";
+                                $sql = "select * from platforms order by id  limit $page,10;";
                                 $res = $mysqli->query($sql);
                                 if (!$res) {
                                     die("sql error:\n" . $mysqli->error);
@@ -280,15 +280,10 @@
                                                 <!--<input type="checkbox" id="check-all" class="flat">-->
                                                 <!--</th>-->
                                                 <th class="column-title" width="5%">编号</th>
-                                                <th class="column-title" width="10%">平台名称</th>
-                                                <th class="column-title" width="10%">应用名称</th>
-                                                <th class="column-title" width="10%">应用价格</th>
-                                                <th class="column-title" width="10%">应用进入图片链接</th>
-                                                <th class="column-title" width="10%">应用Logo</th>
-                                                <th class="column-title" width="10%">应用介绍</th>
-                                                <th class="column-title" width="10%">浏览时长</th>
-                                                <th class="column-title" width="10%">入库时间</th>
-                                                <th class="column-title" width="10%">操作</th>
+                                                <th class="column-title" width="23.75%">平台名称</th>
+                                                <th class="column-title" width="23.75%">平台Logo</th>
+                                                <th class="column-title" width="23.75%">应用介绍</th>
+                                                <th class="column-title" width="23.75%">操作</th>
                                             </tr>
                                         </thead>
 
@@ -299,16 +294,9 @@
                                             <tr class="even pointer">
                                                 <td><?php echo $row['id']; ?></td>
                                                 <td><?php echo $row['title']; ?></td>
-                                                <td><?php echo $row['appname']; ?></td>
-                                                <td><?php echo $row['price']; ?></td>
                                                 <td><?php echo $row['img']; ?></td>
-                                                <td><?php echo $row['logo']; ?></td>
                                                 <td><?php echo $row['content']; ?></td>
-                                                <td><?php echo $row['readtime']; ?></td>
-                                                <td><?php echo $row['time']; ?></td>
                                                 <td>
-                                                    <a href="editapps.php?id=<?php echo $row['id']; ?>" class="btn btn-info btn-xs"><i
-                                                            class="fa fa-pencil"></i> 编辑 </a>
                                                     <a href="javaScript:;" class="btn btn-danger btn-xs" data-id="<?php echo $row['id']; ?>"
                                                         onclick="deleteArticle(this)"><i class="fa fa-trash-o"></i> 删除
                                                     </a>
@@ -319,9 +307,9 @@
                                         </tbody>
                                         <tr>
                                             <td colspan="10">
-                                                <a href='addapps.php'>
+                                                <a href='addplatform.php'>
                                                     <button type="button" class="btn btn-danger"><i class="fa fa-plus-circle"></i>
-                                                    应用录入
+                                                    平台录入
                                                     </button>
                                                 </a>
                                                 <div class="f-right" style="float: right" id="page_go_url" data-url="/Admin/article/articleList">
@@ -370,7 +358,7 @@
                                                             alert("已经是第一页了哦");
                                                             return;
                                                         } else {
-                                                            location.href="admin.php?page=1"
+                                                            location.href="platformlist.php?page=1"
                                                         }
                                                     }
 
@@ -382,7 +370,7 @@
                                                             alert("已经是第一页了哦");
                                                             return;
                                                         } else {
-                                                            location.href="admin.php?page="+(page-1);
+                                                            location.href="platformlist.php?page="+(page-1);
 
                                                         }
                                                     }
@@ -399,7 +387,7 @@
                                                             alert("已经是最后一页");
                                                             return;
                                                         } else {
-                                                            location.href="admin.php?page="+(page+1);
+                                                            location.href="platformlist.php?page="+(page+1);
                                                         }
                                                     }
                                                     /**
@@ -413,7 +401,7 @@
                                                             alert("已经是最后一页");
                                                             return;
                                                         } else {
-                                                            location.href="admin.php?page="+pageCount;
+                                                            location.href="platformlist.php?page="+pageCount;
                                                         }
                                                     }
 
@@ -438,13 +426,13 @@
                                                     }
 
                                                     function deleteArticle(e) {
-                                                        var url = "../api/deleteapp.php";
+                                                        var url = "../api/deleteplatform.php";
                                                         if (confirm("确定删除吗")) {
                                                             $.post(url,"id="+$(e).data('id'),function(res,statue){
                                                                 res=res.trim();
                                                                 if(res=="1"){
                                                                     ShowSuccess("删除成功..")
-                                                                    location.href="admin.php"
+                                                                    location.href="platformlist.php"
                                                                 }else{
                                                                     ShowFailure("删除失败")
                                                                     }
