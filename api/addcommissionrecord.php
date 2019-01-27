@@ -38,7 +38,7 @@ if (!empty($_POST['username'])) {
                 $row=$res->fetch_assoc();
                 $incomerate=$row['incomerate'];
                 $price=(float)$price*(float)$incomerate;
-                $sql="insert into  commission_record(id,appname,price,username,`time`) values (null,'$appname',$price,'$superior',now());";
+                $sql="insert into  commission_record(id,appname,price,username,`time`,subordinate) values (null,'$appname',$price,'$superior',now(),'$username');";
                 $res = $mysqli->query($sql);
                 echo $re;
             } else {//无上级
