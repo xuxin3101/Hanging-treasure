@@ -21,7 +21,7 @@ if (!is_uploaded_file($file['tmp_name'])) {
 $upload_path =  dirname(dirname(__FILE__))."/qrcode/";
 if (move_uploaded_file($file['tmp_name'], $upload_path.$name)) {
         $url='/qrcode/'.$name;
-        $sql="update users set wechatqrcode='$url' where username='$username' and token='$token' and wechatqrcode is NULL";
+        $sql="update users set alipayqrcode='$url' where username='$username' and token='$token' and alipayqrcode is NULL";
         $res=$mysqli->query($sql);
         $data=[];
         if(mysqli_affected_rows($mysqli)){

@@ -20,6 +20,8 @@
     <link href="new_admin/vendors/iCheck/green.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="new_admin/builde/css/custom.min.css" rel="stylesheet">
+        <!-- jQuery -->
+        <script src="js/jquery-1.11.1.min.js"></script>  
 </head>
 
 <body class="nav-md">
@@ -55,6 +57,17 @@
     .tag-info {
         background: #46b8da!important;
     }
+    .qrcode{height:5rem;
+    width:5rem}
+    img:-webkit-full-screen{
+            width: 100%;
+            height: 100%;
+        }
+
+        img:-ms-fullscreen {
+            width: 100%;
+            height: 100%;
+        }
 </style>
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
@@ -97,6 +110,12 @@
                                                 会员列表 </a></li>
                                         <li><a href="withdraw.php">
                                                 会员提现 </a></li>
+                                    </ul>
+                                </li>
+                                <li><a><i class="fa fa-home"></i> 平台管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="platformlist.php">
+                                                平台管理 </a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-home"></i> 系统设置 <span class="fa fa-chevron-down"></span></a>
@@ -341,6 +360,9 @@
                                                 账户名：<?php echo $row['name'] ?><br/>
                                                 银行开户地：<?php echo $row['bankplace'] ?><br />
                                                 银行账户：<?php echo $row['bankaccount'] ?><br/>
+                                                微&nbsp&nbsp信二维码：
+                                                <img src ="..<?php echo $row['wechatqrcode']   ?>" class="qrcode"  onclick="displayphoto(this)"/><br/>
+                                                支付宝二维码：<img src ="..<?php echo $row['alipayqrcode']   ?>"  class="qrcode" onclick="displayphoto(this)"/>
                                                     <!--付款码：-->
                                                     <!---->                                            </td>
                                             <td><?php echo $row['amount'] ?>                                                元                                            </td>
@@ -399,6 +421,7 @@
         最后页
     </button>
 </div>
+
 
 <script type="text/javascript">
 
@@ -502,6 +525,38 @@
             location.href=url+"?id="+$(e).data('id');
         }
     }
+    function displayphoto(e){
+        if (hasFullScreenElement()) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+            if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+            if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            }
+            if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        
+                    } else {
+                        if(e.requestFullscreen)
+                        e.requestFullscreen();
+                        if(e.webkitRequestFullscreen)
+                        e.webkitRequestFullscreen();
+                        if(e.mozRequestFullScreen)
+                        e.mozRequestFullScreen()
+                        if(e.msRequestFullscreen)
+                        e.msRequestFullscreen();
+
+                    }
+    
+
+    }
+    function hasFullScreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
+        }
 
 </script>                                        </td>
                                         </td>
@@ -529,12 +584,13 @@
     </div>
 
 
-    <!-- jQuery -->
-    <script src="js/jquery-1.11.1.min.js"></script>
+
+    
     <!-- Bootstrap -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="new_admin/builde/js/custom.min.js"></script>
+    
 
 </body>
 <script src="js/alert.js"></script>
