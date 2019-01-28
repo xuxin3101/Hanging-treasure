@@ -29,10 +29,10 @@
                 android:background="#262934"
                 android:orientation="vertical"
                 android:visibility="visible">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="公司简介"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     android:textSize="25dp"
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="10dp"
-                    android:text="在使用 试玩宝过程中，遇到任何问题请联系上级代理商"
+                    android:text="在使用 试玩头条过程中，遇到任何问题请联系上级代理商"
                     android:textAlignment="viewStart"
                     android:textColor="#ffffff"
                     android:textSize="20dp" />

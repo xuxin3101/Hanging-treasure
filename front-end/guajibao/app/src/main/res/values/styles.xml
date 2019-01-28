@@ -32,5 +32,18 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+    <style name="MyActionBarStyle" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="contentInsetStart">0dp</item>  
+        <item name="contentInsetEnd">0dp</item>
+    </style>
+    <style name="CustomTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:actionBarSize">45dp</item><!--设置ActionBar的高度-->
+        <item name="actionBarStyle">@style/MyActionBarStyle</item>
+
+    </style>
+
 
 </resources>

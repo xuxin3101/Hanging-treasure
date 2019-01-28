@@ -11,32 +11,33 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/titan_one"
-        android:text="TextView"
+        android:text="邀请\n好友"
+        android:lineSpacingExtra="4dp"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="邀请\n好友" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
+        android:text="多邀多赚 上不封顶"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"
-        tools:text="上不封顶 多邀多赚" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -57,6 +58,8 @@
         android:layout_height="27dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:foreground="?android:attr/selectableItemBackground"
+
         android:layout_marginBottom="25dp"
         android:padding="0dp"
         android:scaleType="centerCrop"

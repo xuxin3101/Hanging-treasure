@@ -8,6 +8,7 @@ import java.util.List;
 import bean.Cricletime;
 import bean.Noincometime;
 import bean.UserInfo;
+import bean.WithdrawQRcode;
 import guajibao.xuxin.com.guajibao.Appsitem;
 
 public class SystemData {
@@ -22,6 +23,7 @@ public class SystemData {
     private static SystemData intstent=new SystemData();
     public static  boolean WORK_STATUE=false;
     private List<Appsitem> realapplistList=null;
+    private WithdrawQRcode withdrawQRcode;
     private SystemData(){
     }
 
@@ -81,5 +83,13 @@ public class SystemData {
     }
     public void setRealapplistList(List<Appsitem> realapplistList) {
         this.realapplistList = realapplistList;
+    }
+
+    public void setWithdrawQRcode(WithdrawQRcode withdrawQRcode) {
+        this.withdrawQRcode = withdrawQRcode;
+    }
+
+    public WithdrawQRcode getWithdrawQRcode() {
+        return withdrawQRcode;
     }
 }

@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (s.equals("等待发放")) {
             // Toast.makeText(MainActivity.this,"任务等待发放中",Toast.LENGTH_LONG).show();
-            Toast t = Toasty.info(MainActivity.this, "任务等待发放中", Toast.LENGTH_LONG);
+            Toast t = Toasty.warning(MainActivity.this, "任务等待发放中", Toast.LENGTH_LONG);
             t.setGravity(Gravity.CENTER, 0, 0);
             t.show();
         } else {

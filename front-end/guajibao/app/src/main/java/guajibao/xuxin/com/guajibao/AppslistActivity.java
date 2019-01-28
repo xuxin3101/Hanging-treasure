@@ -9,6 +9,8 @@ import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -40,6 +42,7 @@ import bean.Noincometime;
 import bean.RealApp;
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
+import tools.ToastUtils;
 
 public class AppslistActivity extends AppCompatActivity {
     private int currentitem=0;
@@ -47,6 +50,9 @@ public class AppslistActivity extends AppCompatActivity {
     private ListView listView;
     public static Thread workthread;
     private boolean isonly=true;
+    static boolean isfirst=false;
+    boolean isintime;
+    private View view ;
 
 
     @Override
@@ -54,7 +60,13 @@ public class AppslistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appslist);
        // updataappslist();
+        LayoutInflater inflater = getLayoutInflater();
+        view=inflater.inflate(R.layout.mytoast, null);
         init();
+
+
+
+
         if(workthread==null){
             workthread= new Thread(new Runnable() {
                 @Override
@@ -65,14 +77,17 @@ public class AppslistActivity extends AppCompatActivity {
                     修改
                      */
                     while(SystemData.WORK_STATUE){
-                        updataappslist();
                         try {
+                            getlistbastract();
+
                             int tmp = 60;
                             if (SystemData.getIntstent().getCricletime() != null) {
                                 tmp = Integer.parseInt(SystemData.getIntstent().getCricletime().getCricletime());
                             }
                             tmp = (tmp+1) * 60000;
                             Thread.sleep(tmp);
+                            updataappslist();
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -92,7 +107,7 @@ public class AppslistActivity extends AppCompatActivity {
     private void init() {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        Toasty.Config.getInstance().setSuccessColor(Color.parseColor("#FF9551")).setTextSize(30).apply();
+        Toasty.Config.getInstance().setSuccessColor(Color.parseColor("#FF9551")).setTextSize(20).apply();
     }
 
     @Override
@@ -111,7 +126,7 @@ public class AppslistActivity extends AppCompatActivity {
         //判断是不是在工作区间
         WorkService.check();
         String format = "HH:mm:ss";
-        boolean isintime = false;
+        isintime = false;
 
         try {
             boolean isinfirstday = false;
@@ -170,19 +185,19 @@ public class AppslistActivity extends AppCompatActivity {
             public void onSuccess(Response<String> response) {
                 if(isJSONValid(response.body())) {//抢单成功
                     final RealApp realApp = JSON.parseObject(response.body(), RealApp.class);
-                    showmytoast("任务已领取成功");
+                    showmytoast("抢到任务啦！","恭喜你已抢到任务，开始加载软件。继续前进吧！WALKUP!");
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             if(SystemData.WORK_STATUE){
                            // Toast.makeText(AppslistActivity.this, "云服务器安装中", Toast.LENGTH_LONG).show();
-                                showmytoast("云服务器安装中");
+                                showmytoast("安装等待中！","应用已下载成功，服务器安装中");
                             }
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     if(SystemData.WORK_STATUE){
-                                      showmytoast("安装完毕，试玩等待中");
+                                      showmytoast("应用安装完毕！","应用已安装完毕，试玩等待中，官方已验证");
                                     }
                                     //Toast.makeText(AppslistActivity.this, "安装完毕，试玩等待中", Toast.LENGTH_LONG).show();
                                     OkGo.<Bitmap>get(realApp.getImg()).execute(new BitmapCallback() {
@@ -318,21 +333,20 @@ public class AppslistActivity extends AppCompatActivity {
         });
 
     }
-    private void showmytoast(String text){
-        /*
-        Toast t=Toast.makeText(AppslistActivity.this, text, Toast.LENGTH_LONG);
+    private void showmytoast(String title,String text){
+       //调用Activity的getLayoutInflater()
+         //加載layout下的布局
+        ((TextView)view.findViewById(R.id.textView17)).setText(title);
+        ((TextView)view.findViewById(R.id.textView18)).setText(text);
+        ToastUtils toastUtils=new ToastUtils(AppslistActivity.this,view,Toast.LENGTH_LONG);
+        Toast t=toastUtils.getToast();
         t.setGravity(Gravity.CENTER,0,0);
-        LinearLayout layout = (LinearLayout) t.getView();
-        layout.setBackgroundColor(Color.parseColor("#FFD700"));
-        layout.setPadding(30,2,30,2);
-        TextView textView=(TextView) layout.getChildAt(0);
-        textView.setTextSize(30);
-        textView.setTextColor(Color.parseColor("#ff0000"));
         t.show();
-        */
-       Toast t= Toasty.success(AppslistActivity.this,text,Toast.LENGTH_LONG,true);
-       t.setGravity(Gravity.CENTER,0,0);
+        /*
+        Toast t= Toasty.warning(AppslistActivity.this,text,Toast.LENGTH_LONG,true);
+        t.setGravity(Gravity.CENTER,0,0);
        t.show();
+       */
     }
     private  void updataappslist(){
         OkGo.<String>get(SystemData.BASEURL+"/api/getapps.php").execute(new StringCallback() {
@@ -380,6 +394,52 @@ public class AppslistActivity extends AppCompatActivity {
             public void onSuccess(Response<String> response) {
                 Noincometime noincometime=JSON.parseObject(response.body(),Noincometime.class);
                 SystemData.getIntstent().setNoincometime(noincometime);
+            }
+        });
+        OkGo.<String>post(SystemData.BASEURL+"/api/isarrivemax.php").execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if(response.body().equals("0")){
+                    isintime=true;
+                }
+            }
+        });
+
+    }
+    private void getlistbastract(){
+        if(isfirst==true){
+            return;
+        }
+        isfirst=true;
+        OkGo.<String>get(SystemData.BASEURL+"/api/getapps.php").execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if(isJSONValid(response.body())){//获取apps列表成功
+                    List<RealApp> apps=JSON.parseArray(response.body(),RealApp.class);
+                    List<Appsitem> appsitemList=new ArrayList<Appsitem>();
+                    for(RealApp t:apps){
+                        Appsitem appsitem=new Appsitem(t.getAppname(),t.getContent(),t.getLogo());
+                        appsitemList.add(appsitem);
+                    }
+                    SystemData.getIntstent().setRealapplistList(appsitemList);
+                    listView = findViewById(R.id.realapplistview);
+                    AppsAdapter appsAdapter = new AppsAdapter(AppslistActivity.this, R.layout.appsitem, SystemData.getIntstent().getRealapplistList());
+                    maxitemcount=appsAdapter.getCount();
+                    listView.setAdapter(appsAdapter);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.setSelection(maxitemcount-1);
+                        }
+                    }, 1000);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.setSelection(currentitem);
+                        }
+                    }, 2000);
+                }
+
             }
         });
     }

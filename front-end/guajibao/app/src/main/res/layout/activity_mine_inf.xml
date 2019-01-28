@@ -164,9 +164,24 @@
                     android:textAlignment="center"
                     android:textColor="#ffffff" />
             </LinearLayout>
-
-
-
+            <Button
+                android:id="@+id/btn_upload_wechat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_radius"
+                style="?android:textAppearanceSmall"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:text="上传微信收款二维码"/>
+            <Button
+                android:id="@+id/btn_upload_alipay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_radius"
+                style="?android:textAppearanceSmall"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:text="上传支付宝收款二维码"/>
 
 
             <Button
@@ -176,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:background="@drawable/button_radius"
-                android:text="保存修改"
+                android:text="保\t\t\t\t存"
                 android:textStyle="bold" />
 
         </LinearLayout>

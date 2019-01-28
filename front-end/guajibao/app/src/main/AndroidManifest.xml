@@ -104,7 +104,17 @@
         <activity
             android:name=".ActivationActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity android:name=".RecruitActivity"
+        <activity
+            android:name=".RecruitActivity"
+            android:label="试玩·每天领钱"
+            android:theme="@style/CustomTheme" />
+        <activity
+            android:name=".InviteActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".RecruitDetailActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity android:name=".HelpActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             ></activity>
     </application>

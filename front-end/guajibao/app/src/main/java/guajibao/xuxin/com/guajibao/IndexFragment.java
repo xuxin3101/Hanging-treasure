@@ -37,6 +37,7 @@ public class IndexFragment extends Fragment {
     private TextView tv_announcement;
     private ImageView iv_hightask;
     private ImageView iv_map;
+    private ImageView iv_help;
     private CircleImageView btn_pow;
     private Intent workservice;
     private TextView tv_zongshouyi;
@@ -129,7 +130,7 @@ public class IndexFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(SystemData.WORK_STATUE){
-                    btn_pow.setImageResource(R.drawable.ic_power_off );
+                    btn_pow.setImageResource(R.drawable.power );
                     SystemData.WORK_STATUE=false;
 
                    // getActivity().stopService(workservice);
@@ -138,7 +139,7 @@ public class IndexFragment extends Fragment {
                         EventBus.getDefault().post("设置");
                         return ;
                     }
-                   btn_pow.setImageResource(R.drawable.ic_power_on );
+                  btn_pow.setImageResource(R.drawable.power_on );
                     SystemData.WORK_STATUE=true;
                    // getActivity().startService(workservice);
                     /*更新版本1.1，跳转activity/
@@ -159,6 +160,13 @@ public class IndexFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post("3");
+            }
+        });
+        iv_help=getView().findViewById(R.id.niceImageView2);
+        iv_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),HelpActivity.class));
             }
         });
 

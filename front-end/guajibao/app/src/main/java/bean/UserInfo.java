@@ -10,6 +10,8 @@ public class UserInfo {
     private  String bankaccount;
     private  String bankplace;
     private  String token;
+    private String wechatqrcode;
+    private String alipayqrcode;
     public String getAlipayaccount() {
         return alipayaccount;
     }
@@ -79,5 +81,21 @@ public class UserInfo {
     }
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public void setAlipayqrcode(String alipayqrcode) {
+        this.alipayqrcode = alipayqrcode;
+    }
+
+    public String getAlipayqrcode() {
+        return alipayqrcode;
+    }
+
+    public String getWechatqrcode() {
+        return wechatqrcode;
+    }
+
+    public void setWechatqrcode(String wechatqrcode) {
+        this.wechatqrcode = wechatqrcode;
     }
 }

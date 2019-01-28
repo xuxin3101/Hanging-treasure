@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.lzy.okgo.model.Response;
 import Users.SystemData;
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
+import tools.ToastUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -112,10 +114,18 @@ public class DisplayappActivity extends AppCompatActivity {
         byte[] res=it.getByteArrayExtra("img");
         mContentView.setImageBitmap(getPicFromBytes(res,null));
       //  Toast.makeText(DisplayappActivity.this,"已获得奖励",Toast.LENGTH_LONG).show();
-        Toast t= Toasty.success(DisplayappActivity.this,"已获得奖励",Toast.LENGTH_LONG,true);
+        /*Toast t= Toasty.warning(DisplayappActivity.this,"已获得奖励",Toast.LENGTH_LONG,true);
         t.setGravity(Gravity.CENTER,0,0);
         t.show();
-
+        */
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.mytoast, null);
+        ((TextView)view.findViewById(R.id.textView17)).setText("已获得奖励");
+        ((TextView)view.findViewById(R.id.textView18)).setText("恭喜您已获得奖励！等待抢单任务。");
+        ToastUtils toastUtils=new ToastUtils(DisplayappActivity.this,view,Toast.LENGTH_LONG);
+        Toast t=toastUtils.getToast();
+        t.setGravity(Gravity.CENTER,0,0);
+        t.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

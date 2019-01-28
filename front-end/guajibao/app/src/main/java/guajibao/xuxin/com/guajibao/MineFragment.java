@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.luck.picture.lib.PictureSelector;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.BitmapCallback;
 import com.lzy.okgo.callback.StringCallback;
@@ -67,6 +68,7 @@ public class MineFragment extends Fragment {
                         }else
                         startActivity(new Intent(getActivity(),LoginActivity.class));
                         return;
+
                     case 1:
                         ClipboardManager clipboardManager= (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                         ClipData myClip;

@@ -7,7 +7,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
-        versionName "1.1.2"
+        versionName "1.1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -42,5 +42,6 @@ dependencies {
     implementation files('libs/commons-lang3-3.8.1.jar')
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.qianwen:update-app:3.5.2'
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
 
 }

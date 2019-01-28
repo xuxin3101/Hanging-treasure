@@ -72,7 +72,12 @@ public class TixianActivity extends AppCompatActivity {
                 String name=SystemData.getIntstent().getUserInfo().getAlipayname();
                 String bankplace=SystemData.getIntstent().getUserInfo().getBankplace();
                 String bankaccount=SystemData.getIntstent().getUserInfo().getBankaccount();
-                String data="username="+username+"&amount="+amount+"&alipay="+alipay+"&name="+name+"&bankplace="+bankplace+"&bankaccount="+bankaccount;
+                String alipayqrcode=SystemData.getIntstent().getWithdrawQRcode().getAlipayqrcode();
+                String wechatqrcode=SystemData.getIntstent().getWithdrawQRcode().getWecheatqrcode();
+                String data="username="+username+"&amount="+amount+"&alipay="+alipay+"&name="+name+"&bankplace="+bankplace
+                        +"&bankaccount="+bankaccount
+                        +"&alipayqrcode="+alipayqrcode
+                        +"&wechatqrcode="+wechatqrcode;
                 OkGo.<String>post(SystemData.BASEURL+"/api/addwithdrawrecord.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

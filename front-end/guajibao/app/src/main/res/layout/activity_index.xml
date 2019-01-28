@@ -211,7 +211,7 @@
         android:id="@+id/btn_power"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_power_off"
+        android:src="@drawable/power"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"

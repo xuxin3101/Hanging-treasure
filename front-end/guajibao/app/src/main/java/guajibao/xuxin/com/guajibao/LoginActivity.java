@@ -20,6 +20,7 @@ import com.lzy.okgo.model.Response;
 
 import Users.SystemData;
 import bean.UserInfo;
+import bean.WithdrawQRcode;
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
 
@@ -71,6 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                             UserInfo userInfo= JSON.parseObject(response.body(),UserInfo.class);
                             Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_LONG).show();
                             SystemData.getIntstent().setUserInfo(userInfo);
+                            WithdrawQRcode withdrawQRcode=new WithdrawQRcode();
+                            withdrawQRcode.setAlipayqrcode(userInfo.getAlipayqrcode());
+                            withdrawQRcode.setWecheatqrcode(userInfo.getWechatqrcode());
+                            SystemData.getIntstent().setWithdrawQRcode(withdrawQRcode);
                             SharedPreferences.Editor editor=getSharedPreferences("userinfo",MODE_PRIVATE).edit();
                             editor.putString("username",userInfo.getUsername());
                             editor.putString("password",userInfo.getPassword());
@@ -80,6 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("bankplace",userInfo.getBankplace());
                             editor.putString("bankaccount",userInfo.getBankaccount());
                             editor.putString("token",userInfo.getToken());
+                            editor.putString("wechatqrcode",userInfo.getWechatqrcode());
+                            editor.putString("alipayqrcode",userInfo.getAlipayqrcode());
                             editor.commit();
                             MainActivity.isdisplaylogin=false;
                             LoginActivity.this.finish();;

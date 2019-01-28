@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D0F1C"
+    tools:context=".HelpActivity">
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="帮助与反馈"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. 如何注册新用户\n
+ 1.1 购买后在通讯录页面找到 一串字母数字混合的激活码，复制到试玩头条启动页面 输入激活码 完成激活(若显示已激活请勿再次激活）\n
+ 1.2 进入操作页面点击--我 -- 我的信息 按照要求填写真实信息，确认无误保存生效。\n
+2. 如何正确启动运行\n
+ 2.1点击 设置 在页面上方将：秘钥修复  、 调用协议勾选。-点击 主页 点击中间启动 按钮 完成启动\n
+3. 身份注册须知\n
+ 3.1 注册身份请用个人真实身份，手机号码请用真实号码，银行卡必须与姓名一致 ，以免影响提现，收款二维码一旦上传无法修改，请仔细上传。\n
+4. 佣金提现须知\n
+ 4.1每周一到周五提现 24小时内到账，法定节假日顺延。\n
+ 4.2 提现金额最低100元 。\n
+5. 忘记密码怎么办\n
+ 忘记密码请点击联系客服 将账号发至客服完成密码找回。\n
+6. 推广佣金收益\n
+ 6.1 邀请没有活动奖励？\n1、好友未购买设备或未激活\n2、下载安装未填写你的邀请码\n3、网络不稳定传输有延时。\n
+7. 关于作弊\n
+ 7.1 为什么登录账号时提示被锁定？\n
+     账号锁定皆因作弊导致，永久封号无法解锁！\n
+     怎样算作弊 ？\n
+     通过刷机重复安装作弊 。\n
+     一台路由器下挂机数量超过20台容易被检测到判定作弊 。\n
+     账号被封禁 可联系客服进行尝试解封！\n
+8. 关于提现失败  会退还金额吗？\n
+ 8.1 提示失败通常两种行为\n
+    1. 订单取消 提现金额会自动退还到余额账户。\n
+    2.订单作废，不退还金额 （操作被检测到作弊或系统封号）。\n
+9. 使用注意事项\n
+ 9.1请勿自行卸载试玩头条系统，卸载后系统收益自动归零，设备将显示未经注册，须再次购买新激活码 。\n
+ 9.2请勿在试玩头条设备安装其它APP，以免影响系统运行速度。\n
+ 9.3尽量不要随意移动设备位置 以免影响IP定位。\n
+ 9.4若遇到闪退或其它问题请重新启动手机和程序 若无法解决请联系客服人员。\n
+ 9.5平台根据任务量自动下载任务，收益会有浮动属于正常。\n
+"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

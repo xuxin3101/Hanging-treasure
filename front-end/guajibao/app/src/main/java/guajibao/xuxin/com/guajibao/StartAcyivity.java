@@ -17,7 +17,9 @@ import java.util.List;
 import Users.SystemData;
 import bean.Announcement;
 import bean.Noincometime;
+import bean.PlatformInfo;
 import bean.UserInfo;
+import bean.WithdrawQRcode;
 
 public class StartAcyivity extends AppCompatActivity {
     private List<Appsitem> appsitemList=new ArrayList<Appsitem>();
@@ -59,6 +61,18 @@ public class StartAcyivity extends AppCompatActivity {
 
 StartAcyivity.this.finish();   }
         },2000);
+        OkGo.<String>get(SystemData.BASEURL+"/api/getplatforms.php").execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                List<PlatformInfo> l = JSON.parseArray(response.body(),PlatformInfo.class);
+                for(PlatformInfo a:l){
+                    appsitemList.add(new Appsitem(a.getTitle(),a.getContent(),a.getImg()));
+                }
+                SystemData.getIntstent().setAppsitemList(appsitemList);
+
+            }
+        });
+        /*
         appsitemList.add(new Appsitem("爱盈利","iMoney为你提供超多好玩的应用，试玩应用还能领取丰厚的现金红包，赶快加入吧~","https://static.eimoney.com/idx/img/web_logo_bottoms.png"));
         appsitemList.add(new Appsitem("小鱼赚钱","动动手指，试玩应用的赚钱软件","http://www.xy599.com/img/pc/imgs/newLogo.png"));
         appsitemList.add(new Appsitem("钱咖","一个有 “价值” 的互动娱乐社区","https://assets.qkcdn.com/images/2ec1a3478526c7a6d73232e0efc94764.png"));
@@ -79,8 +93,7 @@ StartAcyivity.this.finish();   }
         appsitemList.add(new Appsitem("每日赚点","每日赚点，一款能赚钱的APP，一款让你越来越有钱的APP","http://rr.xmys.org/shiwanbao/image/mrzd.jpg"));
         appsitemList.add(new Appsitem("小啄赚钱","用户随时都能线上接到任务，完成任务即可赚到钱","http://rr.xmys.org/shiwanbao/image/xzzq.jpg"));
         appsitemList.add(new Appsitem("左玩右玩","左玩右玩是一款玩游戏赚钱的软件，手机兼职赚钱软件就选左玩右玩","http://rr.xmys.org/shiwanbao/image/zwyw.png"));
-
-        SystemData.getIntstent().setAppsitemList(appsitemList);
+        */
         SharedPreferences sp =getSharedPreferences("userinfo",MODE_PRIVATE);
         UserInfo userInfo=new UserInfo();
         userInfo.setAlipayaccount(sp.getString("alipayaccount",""));
@@ -94,6 +107,10 @@ StartAcyivity.this.finish();   }
         if(userInfo.getUsername().equals(""))
             userInfo=null;
         SystemData.getIntstent().setUserInfo(userInfo);
+        WithdrawQRcode withdrawQRcode=new WithdrawQRcode();
+        withdrawQRcode.setWecheatqrcode(sp.getString("wechatqrcode",""));
+        withdrawQRcode.setAlipayqrcode(sp.getString("alipayqrcode",""));
+        SystemData.getIntstent().setWithdrawQRcode(withdrawQRcode);
     }
     public void onBackPressed(){
     }
