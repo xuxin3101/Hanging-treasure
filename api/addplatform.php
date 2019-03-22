@@ -10,4 +10,3 @@ if (!empty($_POST['title'])) {
 } else {
     echo "erro";
 }
-$mysqli->close();

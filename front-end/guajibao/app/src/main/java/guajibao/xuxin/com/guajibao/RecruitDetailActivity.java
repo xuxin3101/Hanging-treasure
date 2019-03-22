@@ -3,6 +3,7 @@ package guajibao.xuxin.com.guajibao;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -43,10 +44,11 @@ public class RecruitDetailActivity extends AppCompatActivity {
         });
 
 
-        OkGo.<String>post(SystemData.BASEURL+"/api/getrecruitcommission.php").upString("username="+SystemData.getIntstent().getUserInfo().getUsername(),MediaType.parse("application/x-www-form-urlencoded"))
+        OkGo.<String>post(SystemData.BASEURL+"/api/getrecruotmission").upString("username="+SystemData.getIntstent().getUserInfo().getUsername(),MediaType.parse("application/x-www-form-urlencoded"))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        Log.i("徒弟",response.body());
                        List<RecruitCommission> l= JSON.parseArray(response.body(),RecruitCommission.class);
                        for(RecruitCommission r: l){
                            list.add(new Jilu(r.getSubordinate(),r.getAmount()));

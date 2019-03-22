@@ -95,7 +95,7 @@ public class MineFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        WorkService.check();
+        //WorkService.check();
     }
 
     public void onStart() {
@@ -110,6 +110,7 @@ public class MineFragment extends Fragment {
         }
     }
     private  void intiitem(){
+        qq=SystemData.getIntstent().getQQ();
         MineItem mineItem=new MineItem("我的信息",R.drawable.ic_person_black_24dp);
         list.add(mineItem);
         MineItem mineItem1=new MineItem("在线客服",R.drawable.ic_headset_black_24dp);
@@ -134,12 +135,12 @@ public class MineFragment extends Fragment {
 
             }
         });
-        OkGo.<String>get(SystemData.BASEURL+"/api/getqq.php").execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                qq=response.body();
-            }
-        });
+//        OkGo.<String>get(SystemData.BASEURL+"/api/getqq.php").execute(new StringCallback() {
+//            @Override
+//            public void onSuccess(Response<String> response) {
+//                qq=response.body();
+//            }
+//        });
         OkGo.<Bitmap>get("http://rr.xmys.org/shiwanbao/logo.png").execute(new BitmapCallback() {
             @Override
             public void onSuccess(Response<Bitmap> response) {

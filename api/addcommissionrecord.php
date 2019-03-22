@@ -5,18 +5,18 @@ if (!empty($_POST['username'])) {
     $price=addslashes($_POST['price']);
     $username=addslashes($_POST['username']);
     //先检查距离上次的任务记录的时间
-    $sql="select * from commission_record where username='$username' order by id desc;";
-    $res=$mysqli->query($sql);
-    $row=$res->fetch_assoc();//上面倒叙查找，第一条就是最后一条插入的
-    $pretime=$row['time'];
-    $pretime=strtotime($pretime);
+    //$sql="select * from commission_record where username='$username' and subordinate is null  order by id desc;";
+    //$res=$mysqli->query($sql);
+    //$row=$res->fetch_assoc();//上面倒叙查找，第一条就是最后一条插入的
+    //$pretime=$row['time'];
+    //$pretime=strtotime($pretime);
     //取出间隔时间
-    $sql = "select * from cricletime";
-    $res= $mysqli->query($sql);
-    $row=$res->fetch_assoc();
-    $cricletime=(int)$row['cricletime']*60;
-    $nowtime=strtotime('now');
-    if ($nowtime>=$pretime+$cricletime) {//合法的记录插入
+    //$sql = "select * from cricletime";
+   // $res= $mysqli->query($sql);
+   // $row=$res->fetch_assoc();
+    //$cricletime=(int)$row['cricletime']*60;
+    //$nowtime=strtotime('now');
+    //if ($nowtime>=$pretime+$cricletime) {//合法的记录插入
         //判断是否在工作区间之内
         $sql="select * from noincometime";
         $res=$mysqli->query($sql);
@@ -50,22 +50,20 @@ if (!empty($_POST['username'])) {
             echo 'erro';
             return;
         }
-    } else {//非法的记录插入，连续插入多条
-        echo "erro";
-    }
+    //} else {//非法的记录插入，连续插入多条
+        //echo "erro";
+   // }
 } else {
     echo "erro";
 }
-$mysqli->close();
 function checkIsBetweenTime($start, $end)
 {
-    $date= date('H:i:S');
-    $curTime = strtotime($date);//当前时分
+     $curTime = strtotime('now');//当前时分
     $assignTime1 = strtotime($start);//获得指定分钟时间戳，00:00
     $assignTime2 = strtotime($end);//获得指定分钟时间戳，01:00
-    $time24=strtotime('23:59:59');
+    $assignTime1=$assignTime1-86400;
     $result = 0;
-    if (($curTime < $time24 && $curTime >$assignTime1) || ($curTime>strtotime('00:00:00')&&$curTime<$assignTime2)) {
+    if ($curTime > $assignTime1 && $curTime <$assignTime2) {
         return 1;
     }
     return $result;

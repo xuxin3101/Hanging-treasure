@@ -348,6 +348,11 @@
                                            class="form-control col-md-7 col-xs-12" value='<?php echo $incomerate; ?>'>
                                 </div>
                             </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button class="btn btn-success" onclick="youhua()">优化</button>
+                            </div>
+                            </div>
                               
                             <div class="ln_solid"></div>
 
@@ -451,6 +456,19 @@ $(function () {
                 location.href="systemsetting.php"
             }, 1000);
           }else{
+            ShowFailure("发布失败")
+          }
+      })
+  }
+  function youhua(){
+      $.get("../api/youhua.php",function(res){
+          if(res=='1'){
+            ShowSuccess("優化成功..");
+            setTimeout(function() {
+                location.href="systemsetting.php"
+            }, 1000);
+          }
+          else{
             ShowFailure("发布失败")
           }
       })

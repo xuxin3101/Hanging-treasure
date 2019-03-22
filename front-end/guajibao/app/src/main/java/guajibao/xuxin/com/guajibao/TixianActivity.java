@@ -16,6 +16,8 @@ import com.lzy.okgo.model.Response;
 import Users.SystemData;
 import bean.IndexInfo;
 import bean.MinWithDraw;
+import bean.UserInfo;
+import bean.UserInfo1;
 import okhttp3.MediaType;
 
 public class TixianActivity extends AppCompatActivity {
@@ -34,14 +36,15 @@ public class TixianActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        WorkService.check();
+        //WorkService.check();
         if(SystemData.getIntstent().getUserInfo()!=null){
             String data="username="+SystemData.getIntstent().getUserInfo().getUsername();
-            OkGo.<String>post(SystemData.BASEURL+"/api/getindexinfo.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+            OkGo.<String>post(SystemData.BASEURL+"/api/user").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
-                    IndexInfo i=JSON.parseObject(response.body(),IndexInfo.class);
-                    tv_keyongyue.setText("￥"+i.getBalance());
+                    UserInfo1 i=JSON.parseObject(response.body(), UserInfo1.class);
+                    UserInfo userInfo=i.getData();
+                    tv_keyongyue.setText("￥"+userInfo.getBalance());
                 }
             });
         }
@@ -49,13 +52,14 @@ public class TixianActivity extends AppCompatActivity {
 
     private void init(){
         tv_minwithdraw=findViewById(R.id.ev_minwithdraw);
-        OkGo.<String >get(SystemData.BASEURL+"/api/getminwithdraw.php").execute(new StringCallback() {
+        tv_minwithdraw.setText(SystemData.getIntstent().getMinWithDraw().getMinwithwraw());
+        /*OkGo.<String >get(SystemData.BASEURL+"/api/getminwithdraw").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 MinWithDraw minWithDraw=JSON.parseObject(response.body(),MinWithDraw.class);
                 tv_minwithdraw.setText(minWithDraw.getMinwithwraw());
             }
-        });
+        });*/
       tv_keyongyue=findViewById(R.id.tv_yue);
         btn_tixian=findViewById(R.id.button2);
         et_txamount=findViewById(R.id.tixianamount);
@@ -78,7 +82,7 @@ public class TixianActivity extends AppCompatActivity {
                         +"&bankaccount="+bankaccount
                         +"&alipayqrcode="+alipayqrcode
                         +"&wechatqrcode="+wechatqrcode;
-                OkGo.<String>post(SystemData.BASEURL+"/api/addwithdrawrecord.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+                OkGo.<String>post(SystemData.BASEURL+"/api/addwithdrawrecord").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         if(response.body().trim().equals("1")){//申请提现成功

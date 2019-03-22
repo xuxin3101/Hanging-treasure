@@ -20,6 +20,7 @@ import com.lzy.okgo.model.Response;
 
 import Users.SystemData;
 import bean.UserInfo;
+import bean.UserInfo1;
 import bean.WithdrawQRcode;
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
@@ -65,11 +66,16 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_LONG).show();
                     return;
                 }
-                OkGo.<String>post(SystemData.BASEURL+"/api/login.php").upString("username="+username+"&password="+password,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+                OkGo.<String>post(SystemData.BASEURL+"/api/login").upString("username="+username+"&password="+password,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         if(isJSONValid(response.body())){
-                            UserInfo userInfo= JSON.parseObject(response.body(),UserInfo.class);
+                            UserInfo1 userInfo1= JSON.parseObject(response.body(),UserInfo1.class);
+                            if(userInfo1.getSuccess().equals("0")){
+                                Toast.makeText(getApplicationContext(),"账号或密码错误",Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            UserInfo userInfo=userInfo1.getData();
                             Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_LONG).show();
                             SystemData.getIntstent().setUserInfo(userInfo);
                             WithdrawQRcode withdrawQRcode=new WithdrawQRcode();

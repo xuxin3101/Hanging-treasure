@@ -16,7 +16,6 @@ else{
     echo '0';
 }
     
-$mysqli->close();
 
 ?>
 

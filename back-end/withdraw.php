@@ -343,7 +343,7 @@
                                     $res = $mysqli->query($sql);
                                     $row= $res->fetch_assoc();
                                     $count=$row['c'];
-                                    $sql = "select * from withdraw_record order by id desc limit $page,10;";
+                                    $sql = "select * from withdraw_record where username in(select username from users where state='1') order by id desc limit $page,10;";
                                     $res = $mysqli->query($sql);
                                     if (!$res) {
                                         die("sql error:\n" . $mysqli->error);
@@ -609,7 +609,7 @@ $(function () {
      res=res.trim();
     if(res=="1"){
      ShowSuccess("设置成功..")
-     location.href="withdraw.php"
+     location.href="withdraw.php?page="+page
    }else{
      ShowFailure("设置失败")
          }
@@ -625,7 +625,7 @@ $(function () {
      res=res.trim();
     if(res=="1"){
      ShowSuccess("设置成功..")
-     location.href="withdraw.php"
+     location.href="withdraw.php?page="+page
    }else{
      ShowFailure("设置失败")
          }

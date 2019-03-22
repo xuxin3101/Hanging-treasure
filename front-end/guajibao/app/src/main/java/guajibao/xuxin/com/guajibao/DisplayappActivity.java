@@ -109,7 +109,7 @@ public class DisplayappActivity extends AppCompatActivity {
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
-        WorkService.check();
+        //WorkService.check();
         Intent it=getIntent();
         byte[] res=it.getByteArrayExtra("img");
         mContentView.setImageBitmap(getPicFromBytes(res,null));

@@ -1,7 +1,7 @@
 <?php
 include('connect.php');
 $username=$_POST['username'];
-$sql="select sum(price) price from commission_record where to_days(`time`) = to_days(now()) and username='$username';";
+$sql="select sum(price) price from commission_record where to_days(`time`) = to_days(now()) and username='$username' and subordinate is null;";
 $res = $mysqli->query($sql);
 $row=$res->fetch_assoc();
 $money=$row['price'];

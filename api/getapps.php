@@ -11,5 +11,4 @@ $data=[];
 
     }
     echo json_encode($data);
-$mysqli->close();
 ?>

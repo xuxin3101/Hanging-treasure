@@ -65,7 +65,7 @@ public class MapActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         map.onResume();
-        WorkService.check();
+        //WorkService.check();
     }
 
     @Override

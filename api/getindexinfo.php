@@ -2,11 +2,15 @@
 include('connect.php');
 $obj=array();
 $username=addslashes($_POST['username']);
-$sql="select sum(price) price from commission_record where username='$username'";
+$sql="select sum(a.price) price from commission_record a where a.username='$username' ";
 $res= $mysqli->query($sql);
 $row=$res->fetch_assoc();
 $amount=$row['price'];
-$obj['amount']=$amount;
+$tmpsql="select a.balance from wallet a,users b where b.username='$username' and b.id=a.userid";
+$tmpres= $mysqli->query($tmpsql);
+$tmprow=$tmpres->fetch_assoc();
+$amount=(double)$amount+(double)$tmprow['balance'];
+$obj['amount']=round($amount,3);
 $sql="select sum(amount) amount from withdraw_record where username='$username'";
 $res= $mysqli->query($sql);
 $row=$res->fetch_assoc();
@@ -21,5 +25,6 @@ if($row['tuijian']==null){
 
 $obj['withdrawed']=$withdrawed;
 $obj['balance']=$amount-$withdrawed;
+$obj['balance']=round($obj['balance'],3);
 echo json_encode($obj);
 ?>

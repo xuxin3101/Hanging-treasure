@@ -50,10 +50,10 @@ public class RecruitActivity extends AppCompatActivity {
 
     private void init() {
         String data = "subordinate=" + SystemData.getIntstent().getUserInfo().getUsername();
-        OkGo.<String>post(SystemData.BASEURL + "/api/checksuperior.php").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+        OkGo.<String>post(SystemData.BASEURL + "/api/checksuperior").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                if (response.body().trim().equals("1")) {//有上级
+                if (response.body().trim().indexOf("2")!=-1) {//有上级
 
                 } else {//没有上级
                     RecruitActivity.this.startActivity(new Intent(RecruitActivity.this, InviteActivity.class));

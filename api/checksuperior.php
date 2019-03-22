@@ -15,4 +15,3 @@ if (!empty($_POST['subordinate'])) {
 } else {
     echo "erro";
 }
-$mysqli->close();

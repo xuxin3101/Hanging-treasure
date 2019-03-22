@@ -6,6 +6,8 @@ public class Commissionrecord {
     private String time;
     private String price;
     private String username;
+    private String type;
+    private String subordinate;
 
     public void setTime(String time) {
         this.time = time;
@@ -45,5 +47,21 @@ public class Commissionrecord {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public void setSubordinate(String subordinate) {
+        this.subordinate = subordinate;
+    }
+
+    public String getSubordinate() {
+        return subordinate;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 }

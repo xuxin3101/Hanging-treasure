@@ -25,4 +25,3 @@ if (!empty($_POST['superior'])) {
 } else {
     echo "erro";
 }
-$mysqli->close();

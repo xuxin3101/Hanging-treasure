@@ -8,5 +8,4 @@ include('connect.php');
     }
     $row= $res->fetch_assoc();
     echo json_encode($row);
-$mysqli->close();
 ?>

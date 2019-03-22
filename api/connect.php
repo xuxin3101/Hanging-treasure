@@ -4,7 +4,7 @@ $mysql_conf = array(
     'host'    => '127.0.0.1', 
     'db'      => 'Hanging-treasure', //数据库名称
     'db_user' => 'root', //用户名
-    'db_pwd'  => '2ea7cf2b89bc5830', //密码
+    'db_pwd'  => 'f0f1077ac60cf500', //密码
     );
 $mysqli = @new mysqli($mysql_conf['host'], $mysql_conf['db_user'], $mysql_conf['db_pwd']);
 if ($mysqli->connect_errno) {

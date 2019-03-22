@@ -43,6 +43,7 @@ import java.util.Map;
 import Users.SystemData;
 import bean.Cricletime;
 import bean.UpdateInfo;
+import bean.UpdateInfo1;
 import es.dmoral.toasty.Toasty;
 import tools.CProgressDialogUtils;
 import tools.HProgressDialogUtils;
@@ -125,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //检车更新
-  new UpdateAppManager.Builder().setActivity(MainActivity.this).setUpdateUrl(SystemData.BASEURL+"/api/checkupdate.php")
+
+  new UpdateAppManager.Builder().setActivity(MainActivity.this).setUpdateUrl(SystemData.BASEURL+"/api/checkupdate")
                 .setHttpManager(new HttpManager() {
                     @Override
                     public void asyncGet(@NonNull String url, @NonNull Map<String, String> params, @NonNull final Callback callBack) {
@@ -181,19 +183,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).build()
             .checkNewApp(new UpdateCallback(){
-                /**
+               /*
                  * 解析json,自定义协议
                  *
                  * @param json 服务器返回的json
                  * @return UpdateAppBean
                  */
+
                 @Override
                 protected UpdateAppBean parseJson(String json) {
                     UpdateAppBean updateAppBean = new UpdateAppBean();
 
                     try {
+                        UpdateInfo1 updateInfo1=JSON.parseObject(json,UpdateInfo1.class);
 
-                        UpdateInfo updateInfo =  JSON.parseObject(json,UpdateInfo.class);
+                        UpdateInfo updateInfo =  updateInfo1.getDate();
                         updateAppBean
                                 //（必须）是否更新Yes,No
                                 .setUpdate("Yes")
@@ -217,25 +221,28 @@ public class MainActivity extends AppCompatActivity {
                     return updateAppBean;
                 }
 
-                /**
+                /*
                  * 网络请求之前
-                 */
+                 * */
+
                 @Override
                 public void onBefore() {
                     CProgressDialogUtils.showProgressDialog(MainActivity.this);
                 }
 
-                /**
+                /*
                  * 网路请求之后
-                 */
+                 * */
+
                 @Override
                 public void onAfter() {
                     CProgressDialogUtils.cancelProgressDialog(MainActivity.this);
                 }
 
-                /**
+                /*
                  * 没有新版本
                  */
+
 
                 public void noNewApp() {
                     Toast.makeText(MainActivity.this, "没有新版本", Toast.LENGTH_SHORT).show();
@@ -262,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
         } else {
-            WorkService.check();
+            //WorkService.check();
         }
 
     }

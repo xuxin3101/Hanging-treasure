@@ -11,4 +11,3 @@ $sql = "select id,appname,time,price,username from commission_record where usern
         array_push($data, $row);
     }
     echo json_encode($data);
-$mysqli->close();

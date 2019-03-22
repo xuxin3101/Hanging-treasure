@@ -11,4 +11,3 @@ $sql = "select * from withdraw_record where username ='$username' order by id de
         array_push($data, $row);
     }
 echo json_encode($data);
-$mysqli->close();

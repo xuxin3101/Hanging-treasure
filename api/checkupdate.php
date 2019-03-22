@@ -1,5 +1,6 @@
 <?php
 include('connect.php');
+
 $appkey=$_GET['appkey'];
 $version=$_GET['version'];
     $sql = "select * from checkupdate order by id desc  ";
@@ -24,10 +25,6 @@ $data=[];
     $data['ModifyContent']=$row['update_log']; 
     $data['ApkSize']=(int)$row['target_size']; 
     $data['ApkMd5']=""; 
-
-echo json_encode($data);
-
-$mysqli->close();
-
+    echo json_encode($data);
 ?>
 

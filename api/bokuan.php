@@ -7,6 +7,5 @@ include('connect.php');
         die("sql error:\n" . $mysqli->error);
     }
     echo $res;
-$mysqli->close();
 ?>
 

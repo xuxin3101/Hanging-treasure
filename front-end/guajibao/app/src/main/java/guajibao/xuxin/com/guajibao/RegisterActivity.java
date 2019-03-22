@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 String data="username="+username+"&alipay="+alipay+"&idcard="+idcard+"&password="+password+"&name="+name+"&bankaccount="+bank+"&bankplace="+bankplace;
-                OkGo.<String>post(SystemData.BASEURL+"/api/register.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+                OkGo.<String>post(SystemData.BASEURL+"/api/register").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         if(response.body().trim().equals("1")){//注册成功

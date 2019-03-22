@@ -308,10 +308,13 @@
                                             $restmp= $mysqli->query($sqltmp);
                                             $rowtmp=$restmp->fetch_assoc();
                                             $amount=$rowtmp['price'];
+                                            $sqltmp="select sum(balance) price from wallet a,users b where b.username='$username' and b.id=a.userid";
+                                            $restmp= $mysqli->query($sqltmp);
+                                            $rowtmp=$restmp->fetch_assoc();
+                                            $amount=$amount+$rowtmp['price'];
                                             $sqltmp="select sum(amount) amount from withdraw_record where username='$username' and state=1";
                                             $restmp= $mysqli->query($sqltmp);
                                             $rowtmp=$restmp->fetch_assoc();
-                                            $withdrawed=$rowtmp['amount']; 
                                             $withdrawed=$rowtmp['amount'];
                                             if(!$withdrawed){
                                                 $withdrawed=0;
@@ -344,6 +347,9 @@
                                                 <a href="javaScript:;" data-id="<?php echo $row['id']?>"
                                                 onclick="jiedong(this)" class="btn btn-info btn-xs">
                                                 解冻
+                                                </a>
+                                                <a href="editmember.php?id=<?php echo $row['id']?>" class="btn btn-info btn-xs">
+                                                编辑
                                                 </a>
                                             </td>
                                         </tr>                    

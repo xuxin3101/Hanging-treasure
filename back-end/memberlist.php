@@ -312,6 +312,10 @@
                                             $restmp= $mysqli->query($sqltmp);
                                             $rowtmp=$restmp->fetch_assoc();
                                             $amount=$rowtmp['price'];
+                                            $sqltmp="select sum(balance) price from wallet a,users b where b.username='$username' and b.id=a.userid";
+                                            $restmp= $mysqli->query($sqltmp);
+                                            $rowtmp=$restmp->fetch_assoc();
+                                            $amount=$amount+$rowtmp['price'];
                                             $sqltmp="select sum(amount) amount from withdraw_record where username='$username' and state=1";
                                             $restmp= $mysqli->query($sqltmp);
                                             $rowtmp=$restmp->fetch_assoc();

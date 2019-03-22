@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.lzy.okgo.OkGo;
@@ -16,8 +17,12 @@ import java.util.List;
 
 import Users.SystemData;
 import bean.Announcement;
+import bean.Config;
+import bean.Config1;
+import bean.MinWithDraw;
 import bean.Noincometime;
 import bean.PlatformInfo;
+import bean.PlatformInfo1;
 import bean.UserInfo;
 import bean.WithdrawQRcode;
 
@@ -29,20 +34,35 @@ public class StartAcyivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_acyivity);
         OkGo.getInstance().init(getApplication());
-        OkGo.<String>get(SystemData.BASEURL+"/api/getannouncement.php").execute(new StringCallback() {
+        OkGo.<String>get(SystemData.BASEURL+"/api/config").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                Announcement announcement=JSON.parseObject(response.body(),Announcement.class);
-                SystemData.getIntstent().setAnnouncement(announcement.getContent());
+
+//                Announcement announcement=JSON.parseObject(response.body(),Announcement.class);
+////                SystemData.getIntstent().setAnnouncement(announcement.getContent());
+                Config1 config1=JSON.parseObject(response.body(),Config1.class);
+                Config config=config1.getData();
+                SystemData.getIntstent().setAnnouncement(config.getAnnounce());
+                Noincometime noincometime=new Noincometime();
+                noincometime.setStarttime(config.getStarttime());
+                noincometime.setEndtime(config.getEndtime());
+                SystemData.getIntstent().setNoincometime(noincometime);
+                SystemData.getIntstent().setQQ(config.getQq());
+                MinWithDraw minWithDraw=new MinWithDraw();
+                minWithDraw.setMinwithwraw(config.getMinwithdraw());
+                SystemData.getIntstent().setMinWithDraw(minWithDraw);
+
             }
         });
-        OkGo.<String>get(SystemData.BASEURL+"/api/getnoincometime.php").execute(new StringCallback() {
+
+       /* OkGo.<String>get(SystemData.BASEURL+"/api/getnoincometime.php").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+
                 Noincometime noincometime=JSON.parseObject(response.body(),Noincometime.class);
                 SystemData.getIntstent().setNoincometime(noincometime);
             }
-        });
+        });*/
         Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -61,14 +81,15 @@ public class StartAcyivity extends AppCompatActivity {
 
 StartAcyivity.this.finish();   }
         },2000);
-        OkGo.<String>get(SystemData.BASEURL+"/api/getplatforms.php").execute(new StringCallback() {
+        OkGo.<String>get(SystemData.BASEURL+"/api/getplatforms").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                List<PlatformInfo> l = JSON.parseArray(response.body(),PlatformInfo.class);
-                for(PlatformInfo a:l){
-                    appsitemList.add(new Appsitem(a.getTitle(),a.getContent(),a.getImg()));
-                }
-                SystemData.getIntstent().setAppsitemList(appsitemList);
+                PlatformInfo1 platformInfo1=JSON.parseObject(response.body(),PlatformInfo1.class);
+                List<PlatformInfo> l = platformInfo1.getData();
+              for(PlatformInfo a:l){
+                  appsitemList.add(new Appsitem(a.getTitle(),a.getContent(),a.getImg()));
+              }
+              SystemData.getIntstent().setAppsitemList(appsitemList);
 
             }
         });

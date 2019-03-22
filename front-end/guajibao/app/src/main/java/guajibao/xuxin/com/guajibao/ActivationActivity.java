@@ -33,11 +33,11 @@ public class ActivationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String code =ev_activation.getText().toString();
                 String data="code="+code;
-                OkGo.<String>post(SystemData.BASEURL+"/api/activation.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+                OkGo.<String>post(SystemData.BASEURL+"/api/activation").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String str=response.body().trim();
-                        if(str.equals("1")){//成功{
+                        if(str.indexOf("2")!=-1){//成功{
                             SharedPreferences.Editor editor=getSharedPreferences("isactivation",MODE_PRIVATE).edit();
                             editor.putBoolean("isactivation",true);
                             editor.commit();

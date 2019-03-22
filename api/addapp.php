@@ -14,5 +14,4 @@ $res= $mysqli->query($sql);
 echo $res;}
 else
 echo "erro";
-$mysqli->close();
 ?>

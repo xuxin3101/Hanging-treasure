@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,8 @@ import Users.SystemData;
 import bean.App;
 import bean.Noincometime;
 import bean.RealApp;
+import bean.RealApp1;
+import bean.RealApp1Single;
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
 import tools.ToastUtils;
@@ -53,6 +56,7 @@ public class AppslistActivity extends AppCompatActivity {
     static boolean isfirst=false;
     boolean isintime;
     private View view ;
+    boolean isarrvemax=true;
 
 
     @Override
@@ -78,8 +82,9 @@ public class AppslistActivity extends AppCompatActivity {
                      */
                     while(SystemData.WORK_STATUE){
                         try {
-                            getlistbastract();
-
+                            Thread.sleep(3000);
+                            updataappslist();
+                            //getlistbastract();
                             int tmp = 60;
                             if (SystemData.getIntstent().getCricletime() != null) {
                                 tmp = Integer.parseInt(SystemData.getIntstent().getCricletime().getCricletime());
@@ -98,7 +103,7 @@ public class AppslistActivity extends AppCompatActivity {
             workthread.start();
         }else{
             isonly=false;
-            updataappslist();
+            getlistbastract();
         }
 
 
@@ -124,10 +129,9 @@ public class AppslistActivity extends AppCompatActivity {
 
     private void work() {
         //判断是不是在工作区间
-        WorkService.check();
+        //WorkService.check();
         String format = "HH:mm:ss";
         isintime = false;
-
         try {
             boolean isinfirstday = false;
             boolean isinsecond = false;
@@ -136,7 +140,7 @@ public class AppslistActivity extends AppCompatActivity {
             Date startTime = new SimpleDateFormat(format).parse(SystemData.getIntstent().getNoincometime().getStarttime());
             Date endTime = new SimpleDateFormat(format).parse("23:59:59");
             isinfirstday = isEffectiveDate(nowTime, startTime, endTime);
-            startTime = new SimpleDateFormat(format).parse("00:00:00");
+            startTime = new SimpleDateFormat(format).parse("00:00:01");
             endTime = new SimpleDateFormat(format).parse(SystemData.getIntstent().getNoincometime().getEndtime());
             isinsecond = isEffectiveDate(nowTime, startTime, endTime);
             if (isinfirstday || isinsecond) {
@@ -155,7 +159,7 @@ public class AppslistActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (isintime == true) {//如果在无收益时间。显示等待发放，不执行
+        if (isintime == true || isarrvemax==true) {//如果在无收益时间。显示等待发放，不执行
             EventBus.getDefault().post("等待发放");
             /* 原写法
             TimerTask task=new TimerTask() {
@@ -178,13 +182,17 @@ public class AppslistActivity extends AppCompatActivity {
         //正常操作
 
         //抢单（获得app）
-        if(SystemData.WORK_STATUE && isintime==false){
-        String data = "username=" + SystemData.getIntstent().getUserInfo().getUsername();
-        OkGo.<String>post(SystemData.BASEURL + "/api/getapprand.php").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+        if(SystemData.WORK_STATUE && isintime==false && isarrvemax==false){
+        String data = "username=" + SystemData.getIntstent().getUserInfo().getUsername()+"&token="+
+                SystemData.getIntstent().getUserInfo().getToken();
+        OkGo.<String>post(SystemData.BASEURL + "/api/getapprand").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if(isJSONValid(response.body())) {//抢单成功
-                    final RealApp realApp = JSON.parseObject(response.body(), RealApp.class);
+                    RealApp1Single realApp1 = JSON.parseObject(response.body(), RealApp1Single.class);
+                    if(realApp1.getSuccess().indexOf("5")!=-1)
+                        WorkService.offline();
+                    final RealApp realApp=realApp1.getData();
                     showmytoast("抢到任务啦！","恭喜你已抢到任务，开始加载软件。继续前进吧！WALKUP!");
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -324,10 +332,12 @@ public class AppslistActivity extends AppCompatActivity {
     }
 
     private void addmoeny(String username, String appname, String price) {
-        String data = "username=" + username + "&appname=" + appname + "&price=" + price;
-        OkGo.<String>post(SystemData.BASEURL + "/api/addcommissionrecord.php").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+        String data = "username=" + username + "&appname=" + appname + "&price=" + price+
+                "&token="+SystemData.getIntstent().getUserInfo().getToken();
+        OkGo.<String>post(SystemData.BASEURL + "/api/addmoeny").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                Log.i("加钱结果",response.body());
 
             }
         });
@@ -349,11 +359,12 @@ public class AppslistActivity extends AppCompatActivity {
        */
     }
     private  void updataappslist(){
-        OkGo.<String>get(SystemData.BASEURL+"/api/getapps.php").execute(new StringCallback() {
+        OkGo.<String>get(SystemData.BASEURL+"/api/getapps").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if(isJSONValid(response.body())){//获取apps列表成功
-                    List<RealApp> apps=JSON.parseArray(response.body(),RealApp.class);
+                    RealApp1 realApp1= JSON.parseObject(response.body(),RealApp1.class);
+                    List<RealApp> apps=realApp1.getData();
                     List<Appsitem> appsitemList=new ArrayList<Appsitem>();
                     for(RealApp t:apps){
                         Appsitem appsitem=new Appsitem(t.getAppname(),t.getContent(),t.getLogo());
@@ -389,18 +400,25 @@ public class AppslistActivity extends AppCompatActivity {
 
             }
         });
-        OkGo.<String>get(SystemData.BASEURL+"/api/getnoincometime.php").execute(new StringCallback() {
+       /* OkGo.<String>get(SystemData.BASEURL+"/api/getnoincometime.php").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Noincometime noincometime=JSON.parseObject(response.body(),Noincometime.class);
                 SystemData.getIntstent().setNoincometime(noincometime);
             }
-        });
-        OkGo.<String>post(SystemData.BASEURL+"/api/isarrivemax.php").execute(new StringCallback() {
+        });*/
+        String data="username="+SystemData.getIntstent().getUserInfo().getUsername()+"&token="
+                +SystemData.getIntstent().getUserInfo().getToken();
+        OkGo.<String>post(SystemData.BASEURL+"/api/Isarrivemax").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                if(response.body().equals("0")){
-                    isintime=true;
+                Log.i("是否到达最大",response.body());
+                if(response.body().indexOf("2")==-1){
+                    isarrvemax=true;
+                }else if(response.body().indexOf("5")!=-1){
+                    WorkService.offline();
+                }else{
+                    isarrvemax=false;
                 }
             }
         });
@@ -411,11 +429,12 @@ public class AppslistActivity extends AppCompatActivity {
             return;
         }
         isfirst=true;
-        OkGo.<String>get(SystemData.BASEURL+"/api/getapps.php").execute(new StringCallback() {
+        OkGo.<String>get(SystemData.BASEURL+"/api/getapps").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if(isJSONValid(response.body())){//获取apps列表成功
-                    List<RealApp> apps=JSON.parseArray(response.body(),RealApp.class);
+                   RealApp1 realApp1= JSON.parseObject(response.body(),RealApp1.class);
+                    List<RealApp> apps=realApp1.getData();
                     List<Appsitem> appsitemList=new ArrayList<Appsitem>();
                     for(RealApp t:apps){
                         Appsitem appsitem=new Appsitem(t.getAppname(),t.getContent(),t.getLogo());

@@ -21,6 +21,10 @@ include('connect.php');
     $res = $mysqli->query($sql);
     $row= $res->fetch_assoc();
     $data['income']=$row['price'];
+    $sql="select balance from wallet where userid=$id";
+    $res = $mysqli->query($sql);
+    $row= $res->fetch_assoc();
+    $data['income']=$data['income']+$row['balance'];
     $sql="select sum(amount) amount from withdraw_record where username='$username'";
     $res = $mysqli->query($sql);
     $row= $res->fetch_assoc();
@@ -28,6 +32,4 @@ include('connect.php');
     if($data['maxincome']==null){
         $data['maxincome']=0;
     }
-    echo json_encode($data);
-$mysqli->close();
-?>
+echo json_encode($data);

@@ -12,6 +12,10 @@ public class UserInfo {
     private  String token;
     private String wechatqrcode;
     private String alipayqrcode;
+    private String allbalance;
+    private String balance;
+    private String sqtxje;
+    private String bonus;
     public String getAlipayaccount() {
         return alipayaccount;
     }
@@ -97,5 +101,37 @@ public class UserInfo {
 
     public void setWechatqrcode(String wechatqrcode) {
         this.wechatqrcode = wechatqrcode;
+    }
+
+    public String getAllbalance() {
+        return allbalance;
+    }
+
+    public void setAllbalance(String allbalance) {
+        this.allbalance = allbalance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public String getSqtxje() {
+        return sqtxje;
+    }
+
+    public void setSqtxje(String sqtxje) {
+        this.sqtxje = sqtxje;
+    }
+
+    public String getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(String bonus) {
+        this.bonus = bonus;
     }
 }

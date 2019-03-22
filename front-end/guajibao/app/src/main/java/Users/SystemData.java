@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.Cricletime;
+import bean.MinWithDraw;
 import bean.Noincometime;
 import bean.UserInfo;
 import bean.WithdrawQRcode;
@@ -14,9 +15,10 @@ import guajibao.xuxin.com.guajibao.Appsitem;
 public class SystemData {
     private static CheckBox checkBox1;
     private static  CheckBox checkBox2;
-    public static String BASEURL="http://rr.xmys.org/shiwanbao";
+    public static String BASEURL="http://47.104.98.169:8081";
     private  UserInfo userInfo;
     private String announcement;
+    private String QQ;
     private Cricletime cricletime;
     private Noincometime noincometime;
     private  List<Appsitem> appsitemList=new ArrayList<Appsitem>();
@@ -24,6 +26,7 @@ public class SystemData {
     public static  boolean WORK_STATUE=false;
     private List<Appsitem> realapplistList=null;
     private WithdrawQRcode withdrawQRcode;
+    private MinWithDraw minWithDraw;
     private SystemData(){
     }
 
@@ -91,5 +94,21 @@ public class SystemData {
 
     public WithdrawQRcode getWithdrawQRcode() {
         return withdrawQRcode;
+    }
+
+    public String getQQ() {
+        return QQ;
+    }
+
+    public void setQQ(String QQ) {
+        this.QQ = QQ;
+    }
+
+    public MinWithDraw getMinWithDraw() {
+        return minWithDraw;
+    }
+
+    public void setMinWithDraw(MinWithDraw minWithDraw) {
+        this.minWithDraw = minWithDraw;
     }
 }

@@ -15,10 +15,10 @@ if($maxincome=='0'){
     $maxincome='null';
 }
 if($password){
-    $sql = "update users set username='$username',idcard='$idcard',alipayaccount=$alipayaccount,alipayname='$name',bankaccount='$bankaccount',bankplace='$bankplace',password='$password',dailymaxincome=$maxincome where id=$id;";
+    $sql = "update users set username='$username',idcard='$idcard',alipayaccount='$alipayaccount',alipayname='$name',bankaccount='$bankaccount',bankplace='$bankplace',password='$password',dailymaxincome=$maxincome where id=$id;";
 }
 else{
-    $sql = "update users set username='$username',idcard='$idcard',alipayaccount=$alipayaccount,alipayname='$name',bankaccount='$bankaccount',bankplace='$bankplace',dailymaxincome=$maxincome where id=$id;";
+    $sql = "update users set username='$username',idcard='$idcard',alipayaccount='$alipayaccount',alipayname='$name',bankaccount='$bankaccount',bankplace='$bankplace',dailymaxincome=$maxincome where id=$id;";
 }
 $res= $mysqli->query($sql);
 echo $res;}

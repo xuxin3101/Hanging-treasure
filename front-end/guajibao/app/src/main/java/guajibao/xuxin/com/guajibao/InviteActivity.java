@@ -37,11 +37,11 @@ public class InviteActivity extends AppCompatActivity {
                     return;
                 }
                 String data="superior="+invitecode+"&subordinate="+SystemData.getIntstent().getUserInfo().getUsername()+"&password="+SystemData.getIntstent().getUserInfo().getPassword();
-                OkGo.<String>post(SystemData.BASEURL+"/api/addrelationship.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+                OkGo.<String>post(SystemData.BASEURL+"/api/addrelationship").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Toasty.Config.reset();
-                        if(response.body().trim().equals("1")){//绑定成功
+                        if(response.body().trim().indexOf("2")!=-1){//绑定成功
                             Toasty.success(InviteActivity.this,"绑定成功",Toast.LENGTH_LONG).show();
                             InviteActivity.this.finish();
 

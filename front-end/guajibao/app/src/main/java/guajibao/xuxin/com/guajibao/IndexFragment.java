@@ -29,6 +29,8 @@ import Users.SystemData;
 import bean.Announcement;
 import bean.IndexInfo;
 import bean.RealApp;
+import bean.UserInfo;
+import bean.UserInfo1;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 
@@ -64,27 +66,31 @@ public class IndexFragment extends Fragment {
         super.onResume();
 
         if(SystemData.getIntstent().getUserInfo()!=null){
-            WorkService.check();
-        String data="username="+SystemData.getIntstent().getUserInfo().getUsername();
-        OkGo.<String>post(SystemData.BASEURL+"/api/getindexinfo.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+//            WorkService.check();
+        String data="username="+SystemData.getIntstent().getUserInfo().getUsername()+
+                "&token="+SystemData.getIntstent().getUserInfo().getToken();
+        OkGo.<String>post(SystemData.BASEURL+"/api/user").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                IndexInfo i=JSON.parseObject(response.body(),IndexInfo.class);
-                tv_zongshouyi.setText(i.getAmount());
-                tv_tuijianyongjin.setText(i.getTuijian());
-                tv_keyongyue.setText(i.getBalance());
-                tv_yitixian.setText(i.getWithdrawed());
+                UserInfo1 i=JSON.parseObject(response.body(), UserInfo1.class);
+                if (i.getSuccess().indexOf("5")!=-1)
+                    WorkService.offline();
+                UserInfo userInfo=i.getData();
+                tv_zongshouyi.setText(userInfo.getAllbalance());
+                tv_tuijianyongjin.setText(userInfo.getBonus());
+                tv_keyongyue.setText(userInfo.getBalance());
+                tv_yitixian.setText(userInfo.getSqtxje());
             }
         });
         }
-        OkGo.<String>get(SystemData.BASEURL+"/api/getannouncement.php").execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Announcement announcement=JSON.parseObject(response.body(),Announcement.class);
-                SystemData.getIntstent().setAnnouncement(announcement.getContent());
-                inti();
+    /*    OkGo.<String>get(SystemData.BASEURL+"/api/getannouncement.php").execute(new StringCallback() {
+           @Override
+           public void onSuccess(Response<String> response) {
+               Announcement announcement=JSON.parseObject(response.body(),Announcement.class);
+              SystemData.getIntstent().setAnnouncement(announcement.getContent());
+               inti();
             }
-        });
+        });*/
 
 
 

@@ -23,8 +23,13 @@ import Users.Jilu;
 import Users.SystemData;
 import adapters.TixianAdapter;
 import bean.Commissionrecord;
+import bean.Commissionrecord1;
+import bean.Commissionrecord2;
 import bean.IndexInfo;
+import bean.UserInfo;
+import bean.UserInfo1;
 import bean.WithdrawRecord;
+import bean.WithdrawRecord1;
 import okhttp3.MediaType;
 
 public class WalletFragment extends Fragment {
@@ -51,15 +56,16 @@ public class WalletFragment extends Fragment {
 
     @Override
     public void onResume() {
-        WorkService.check();
+        //WorkService.check();
         super.onResume();
         if(SystemData.getIntstent().getUserInfo()!=null){
             String data="username="+SystemData.getIntstent().getUserInfo().getUsername();
-            OkGo.<String>post(SystemData.BASEURL+"/api/getindexinfo.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+            OkGo.<String>post(SystemData.BASEURL+"/api/user").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
-                    IndexInfo i=JSON.parseObject(response.body(),IndexInfo.class);
-                    tv_keyongyue.setText("￥"+i.getBalance());
+                    UserInfo1 i=JSON.parseObject(response.body(), UserInfo1.class);
+                    UserInfo userInfo=i.getData();
+                    tv_keyongyue.setText("￥"+userInfo.getBalance());
                 }
             });
         }
@@ -93,13 +99,14 @@ public class WalletFragment extends Fragment {
 
 
         String data="username="+SystemData.getIntstent().getUserInfo().getUsername();
-        OkGo.<String>post(SystemData.BASEURL+"/api/getwithdrawrecord.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+        OkGo.<String>post(SystemData.BASEURL+"/api/getwithdrawrecord").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 String str=response.body();
                 if(isJSONValid(str))
                 {
-                    List<WithdrawRecord> wr=JSON.parseArray(str,WithdrawRecord.class);
+                    WithdrawRecord1 withdrawRecord1=JSON.parseObject(str,WithdrawRecord1.class);
+                    List<WithdrawRecord> wr=withdrawRecord1.getData();
                     Jilu[] wjl=new Jilu[wr.size()];
                     for(int i=0;i<wr.size();i++){
                         wjl[i]=new Jilu(wr.get(i).getTime()+"",wr.get(i).getAmount());
@@ -112,13 +119,13 @@ public class WalletFragment extends Fragment {
 
             }
         });
-        OkGo.<String>post(SystemData.BASEURL+"/api/getcommissionrecord.php").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+        OkGo.<String>post(SystemData.BASEURL+"/api/getcommissionrecord").upString(data,MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 String str=response.body();
                 if(isJSONValid(str))
-                {
-                    List<Commissionrecord> wr=JSON.parseArray(str,Commissionrecord.class);
+                {   Commissionrecord1 commissionrecord1=JSON.parseObject(str,Commissionrecord1.class);
+                    List<Commissionrecord> wr=commissionrecord1.getData().getRows();
                     Jilu[] cjl=new Jilu[wr.size()];
                     for(int i=0;i<wr.size();i++){
                         cjl[i]=new Jilu(wr.get(i).getTime()+"",wr.get(i).getPrice());
@@ -138,7 +145,11 @@ public class WalletFragment extends Fragment {
         try{
             JSON.parseArray(str);
         }catch (JSONException ex){
-            return false;
+            try{
+                JSON.parseObject(str);
+            }catch (JSONException e){
+                return false;
+            }
         }
         return true;
     }

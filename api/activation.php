@@ -18,5 +18,4 @@ if($row){
 }
 else
 echo "erro";
-$mysqli->close();
 ?>

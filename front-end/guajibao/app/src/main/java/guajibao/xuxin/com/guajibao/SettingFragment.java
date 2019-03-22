@@ -50,6 +50,6 @@ public class SettingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        WorkService.check();
+        //WorkService.check();
     }
 }

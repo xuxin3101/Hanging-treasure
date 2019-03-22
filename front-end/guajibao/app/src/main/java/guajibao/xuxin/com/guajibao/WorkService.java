@@ -46,7 +46,7 @@ public class WorkService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         //耗时操作
         while (SystemData.WORK_STATUE) {
-            check();
+            //check();
             String format = "HH:mm:ss";
             boolean isintime = false;
             try {
@@ -87,7 +87,7 @@ public class WorkService extends IntentService {
             }
 
             EventBus.getDefault().post("下载开始");
-            OkGo.<String>get(SystemData.BASEURL + "/api/getapprand.php").execute(new StringCallback() {
+            OkGo.<String>get(SystemData.BASEURL + "/api/getapprand").execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
                     a = JSON.parseObject(response.body(), App.class);
@@ -132,7 +132,7 @@ public class WorkService extends IntentService {
                     @Override
                     public void onComplete() {
                         Toast.makeText(getApplicationContext(), "安装成功", Toast.LENGTH_LONG).show();
-                        check();
+                        check("");
                         addmoeny(SystemData.getIntstent().getUserInfo().getUsername(), a.getTitle(), a.getPrice());
                         EventBus.getDefault().post("打开app:" + packagename);
                         try {
@@ -167,7 +167,7 @@ public class WorkService extends IntentService {
 
     private void addmoeny(String username, String appname, String price) {
         String data = "username=" + username + "&appname=" + appname + "&price=" + price;
-        OkGo.<String>post(SystemData.BASEURL + "/api/addcommissionrecord.php").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+        OkGo.<String>post(SystemData.BASEURL + "/api/addcommissionrecord").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
 
@@ -176,9 +176,9 @@ public class WorkService extends IntentService {
 
     }
 
-    public static void check() {
+    public static void check(String a) {
         String data = "username=" + SystemData.getIntstent().getUserInfo().getUsername() + "&token=" + SystemData.getIntstent().getUserInfo().getToken();
-        OkGo.<String>post(SystemData.BASEURL + "/api/check.php").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+        OkGo.<String>post(SystemData.BASEURL + "/api/check").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 String str = response.body().trim();
@@ -189,6 +189,12 @@ public class WorkService extends IntentService {
                 }
             }
         });
+    }
+    public static void offline(){
+        EventBus.getDefault().post("踢下线");
+    }
+    public static void stopper(){
+        EventBus.getDefault().post("冻结");
     }
 
     private boolean isEffectiveDate(Date nowTime, Date startTime, Date endTime) {

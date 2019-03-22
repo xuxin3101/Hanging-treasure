@@ -99,7 +99,7 @@ public class MineInfActivity extends AppCompatActivity {
                 String data = null;
                 data = "username=" + SystemData.getIntstent().getUserInfo().getUsername() + "&alipay=" + alipay + "&idcard=" + idcard
                         + "&yuanmima=" + yuanmima + "&name=" + name + "&xiugaimima=" + xiugaimima + "&bankaccount=" + bankaccount + "&bankplace=" + bankplace;
-                OkGo.<String>post(SystemData.BASEURL + "/api/updateuserinfo.php").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
+                OkGo.<String>post(SystemData.BASEURL + "/api/updateuserinfo").upString(data, MediaType.parse("application/x-www-form-urlencoded")).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         if (response.body().trim().equals("1")) {//修改成功
@@ -207,7 +207,7 @@ public class MineInfActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        WorkService.check();
+        //WorkService.check();
     }
 
     private boolean isJSONValid(String str) {
@@ -235,9 +235,9 @@ public class MineInfActivity extends AppCompatActivity {
                         }
                         String url;
                         if (wechatoralipay == 1) {
-                            url = SystemData.BASEURL + "/api/uploadwechatqrcode.php";
+                            url = SystemData.BASEURL + "/api/uploadwechatqrcode";
                         } else if (wechatoralipay == 2) {
-                            url = SystemData.BASEURL + "/api/uploadalipayqrcode.php";
+                            url = SystemData.BASEURL + "/api/uploadalipayqrcode";
                         } else {
                             url = "";
                             Toasty.error(MineInfActivity.this, "未知错误").show();
